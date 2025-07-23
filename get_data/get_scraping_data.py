@@ -77,10 +77,18 @@ def extract_book_info(book: BeautifulSoup) -> dict:
 
 
 def scrape_books(pages: int) -> list[dict]:
-    base_url = f"http://books.toscrape.com/catalogue/page-{pages}.html"
-    soup = get_books_html(base_url)
-    books = soup.find_all("article", class_="product_pod")
-    list_books = [extract_book_info(i) for i in books]
+    list_books=[]
+    if pages <= 1:
+        base_url = f"http://books.toscrape.com/catalogue/page-1.html"
+        soup = get_books_html(base_url)
+        books = soup.find_all("article", class_="product_pod")
+        list_books_page = [extract_book_info(i) for i in books]
+    elif pages > 1:
+        for i in range(1,pages+1):
+            base_url = f"http://books.toscrape.com/catalogue/page-{i}.html"
+            soup = get_books_html(base_url)
+            books = soup.find_all("article", class_="product_pod")
+            list_books.extend([extract_book_info(n) for n in books])
     return list_books
     """Scrape books from the specified number of pages.
 
