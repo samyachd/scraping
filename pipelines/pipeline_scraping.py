@@ -10,6 +10,7 @@ file = '../scraping/data/data_scraping.csv'
 file_clean = '../scraping/data/data_scraping_clean.csv'
 
 def run_scraping_pipeline(pages:int, name: str):
+    print("Scraping started ...")
     data_books = gs.scrape_books(pages)
     df_books = pd.DataFrame(data_books)
     df_books.to_csv(file)
