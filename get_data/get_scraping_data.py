@@ -99,4 +99,7 @@ def scrape_books(pages: int) -> list[dict]:
         list: A list of dictionaries containing books information.
     """
 
-    
+def get_books_API(url: str, payload: dict):
+    response = requests.get(url, params=payload)
+    r_data_books_API = response.json().get("items", "clé inexistante")
+    return r_data_books_API
